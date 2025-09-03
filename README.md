@@ -5,12 +5,7 @@ This repository is intended to complete batch conversions of nd2 files to dax fi
 ## Instructions for use
 Before getting started with the file conversion, ensure that all files in the nd2_to_dax_converter are downloaded and unzipped. To ensure that no errors occur during processing, folders should be set up according to the following:
 
-Project Folder
-*nd2_to_dax_converter-main (folder containing datawriter.py, datareader.py and converter.py)
-*input_data (A folder containing all the ND2 files)
-*output_data (A folder that will be filled with the resulting data)
-    *tiff_files (A folder containing all the files in TIFF format)
-    *dax_files (A folder containing all the files in DAX format)
+<pre lang="markdown"> ``` Project Folder/ ├── nd2_to_dax_converter-main/ # Contains datawriter.py, datareader.py, converter.py │ ├── datawriter.py │ ├── datareader.py │ └── converter.py ├── input_data/ # Folder containing all the ND2 files ├── output_data/ # Folder that will be filled with resulting data │ ├── tiff_files/ # Contains all the files in TIFF format │ └── dax_files/ # Contains all the files in DAX format ``` </pre>
 
 **Create the Input and Output data folders but DO NOT add any files into the Output folder**
 
