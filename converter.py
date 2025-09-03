@@ -42,7 +42,7 @@ def convert_tiff_to_dax(tiff_path, dax_path):
     return True    
     
 
-def main(nd2_folder):
+def main(nd2_folder, output_folder):
     if not os.path.isdir(nd2_folder):
         print(f"Folder not found: {nd2_folder}")
         sys.exit(1)
@@ -53,14 +53,16 @@ def main(nd2_folder):
         print(f"No ND2 files found.")
         sys.exit(1)
 
-    output_dir = os.path.join(nd2_folder, "converted")
-    os.makedirs(output_dir, exist_ok=True)
+    tiff_dir = os.path.join(output_folder, "tiff_files")
+    dax_dir = os.path.join(output_folder, "dax_files")
+    os.makedirs(tiff_dir, exist_ok=True)
+    os.makedirs(dax_dir, exist_ok=True)
 
 
     for nd2_file in nd2_files:
         base_name = os.path.splitext(os.path.basename(nd2_file))[0]
-        tiff_path = os.path.join(output_dir, base_name + ".tif")
-        dax_path = os.path.join(output_dir, base_name + ".dax")
+        tiff_path = os.path.join(tiff_dir, base_name + ".tif")
+        dax_path = os.path.join(dax_dir, base_name + ".dax")
 
         success_tiff = convert_nd2_to_tiff(nd2_file, tiff_path)
         if success_tiff:
@@ -69,9 +71,10 @@ def main(nd2_folder):
     print("Batch conversion completed.")
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: python nd2_to_dax_batch.py /path/to/nd2_files/")
+    if len(sys.argv) != 3:
+        print("Usage: python nd2_to_dax_batch.py /path/to/nd2_files/ /path/to/output_folder/")
         sys.exit(1)
 
     nd2_folder = sys.argv[1]
-    main(nd2_folder)
+    output_folder = sys.argv[2]
+    main(nd2_folder, output_folder)
