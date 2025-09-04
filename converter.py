@@ -5,7 +5,6 @@ import os
 import tifffile
 import nd2 
 
-import datawriter
 import datareader 
 
 
@@ -25,7 +24,6 @@ def convert_tiff_to_dax(tiff_path, dax_path):
 
     try:
         tiff_data = tifffile.imread(tiff_path)
-        print(f"[DEBUG] Direct TIFF load shape: {tiff_data.shape}")
         
         if tiff_data.ndim == 3:
             num_frames, height, width = tiff_data.shape
@@ -40,7 +38,6 @@ def convert_tiff_to_dax(tiff_path, dax_path):
 
         for i in range(num_frames):
             frame = tiff_data[i, :, :]
-            print(f"[DEBUG] Frame {i}: shape={frame.shape}, dtype={frame.dtype}, min={frame.min()}, max={frame.max()}")
             dax_file.addFrame(frame)
 
         dax_file.close()
