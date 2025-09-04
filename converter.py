@@ -22,13 +22,11 @@ def convert_tiff_to_dax(tiff_path, dax_path):
     print(f"Converting TIFF to DAX: {tiff_path} → {dax_path}")
     
     try:
-        reader=datareader.TifReader(tiff_path)
-        dax_file=datawriter.DaxWriter(dax_path)
+        reader = datareader.TifReader(tiff_path)
+        dax_file = datawriter.DaxWriter(dax_path, width=reader.image_width, height=reader.image_height)
 
-        try:
-            num_frames = reader.filestream.shape[0]
-        except AttributeError:
-            num_frames = 1
+        num_frames = reader.number_frames
+        print(f"TIFF has {num_frames} frames.")
 
         for i in range(num_frames):
             frame = reader.loadAFrame(i)
@@ -39,7 +37,7 @@ def convert_tiff_to_dax(tiff_path, dax_path):
         print(f"Error converting TIFF to DAX: {e}")
         return False
 
-    return True    
+    return True
     
 
 def main(nd2_folder, output_folder):
