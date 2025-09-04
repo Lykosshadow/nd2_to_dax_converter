@@ -376,27 +376,26 @@ class TifReader(Reader):
         #
         if (number_pages == 1):
 
-            # Determines the size without loading the entire file.
+            # Get the shape of the main series (e.g., (10298, 256, 256))
             isize = self.fileptr.series[0].shape
+            self.page_data = self.fileptr.asarray(out='memmap')
 
-            # Check if this is actually just a single frame tiff, if
-            # it is we'll just load it into memory.
-            #
-            if (len(isize)==2):
+            if len(isize) == 2:
+                # Single 2D image
                 self.frames_per_page = 1
                 self.number_frames = 1
                 self.image_height = isize[0]
                 self.image_width = isize[1]
-                self.page_data = self.fileptr.asarray()
 
-            # Otherwise we'll memmap it in case it is really large.
-            #
-            else:
+            elif len(isize) == 3:
+                # 3D stack of images (e.g., (10298, 256, 256))
                 self.frames_per_page = isize[0]
                 self.number_frames = isize[0]
                 self.image_height = isize[1]
                 self.image_width = isize[2]
-                self.page_data = self.fileptr.asarray(out = 'memmap')
+
+            else:
+                raise ValueError(f"Unsupported TIFF shape: {isize}")
 
         # Multiple page Tiff file.
         #
