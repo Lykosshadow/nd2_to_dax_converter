@@ -23,13 +23,30 @@ def convert_tiff_to_dax(tiff_path, dax_path):
     
     try:
         reader = datareader.TifReader(tiff_path)
-        dax_file = datawriter.DaxWriter(dax_path, width=reader.image_width, height=reader.image_height)
+        dax_file = datawriter.DaxWriter(dax_path)
 
-        num_frames = reader.number_frames
+        try:
+            num_frames = reader.filestream.shape[0]
+        except AttributeError:
+            num_frames = 1
+
         print(f"TIFF has {num_frames} frames.")
+        print(f"Frame size: {reader.image_height} x {reader.image_width}")
 
         for i in range(num_frames):
             frame = reader.loadAFrame(i)
+            
+            print(f"Frame {i}: shape={frame.shape}, dtype={frame.dtype}, "
+                  f"min={frame.min()}, max={frame.max()}")
+
+            if frame.shape != (reader.image_height, reader.image_width):
+                raise ValueError(f"Frame {i} has unexpected shape: {frame.shape}")
+
+            if frame.dtype != np.uint16:
+                raise ValueError(f"Frame {i} has invalid dtype: {frame.dtype}")
+
+            if frame.size == 0:
+                raise ValueError(f"Frame {i} is empty")
             dax_file.addFrame(frame)
 
         dax_file.close()

@@ -130,7 +130,7 @@ class FITSWriter(Writer):
         else:
             assert(self.h == frame.shape[0])
             assert(self.w == frame.shape[1])        
-
+  
         self.frames.append(frame)
 
     def close(self):
