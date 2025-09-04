@@ -7,8 +7,7 @@ Before getting started with the file conversion, ensure that all files in the nd
 
 - **Project Folder/**
   - **nd2_to_dax_converter-main/**
-    - datawriter.py  
-    - datareader.py  
+    - datawriter.py   
     - converter.py  
   - **input_data/** — folder containing ND2 files  
   - **output_data/**
