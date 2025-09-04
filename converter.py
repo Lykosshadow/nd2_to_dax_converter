@@ -72,7 +72,7 @@ def main(nd2_folder, output_folder):
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
-        print("Usage: python nd2_to_dax_batch.py /path/to/nd2_files/ /path/to/output_folder/")
+        print("Usage: python converter.py /path/to/nd2_files/ /path/to/output_folder/")
         sys.exit(1)
 
     nd2_folder = sys.argv[1]
