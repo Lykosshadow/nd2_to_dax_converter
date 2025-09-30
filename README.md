@@ -17,3 +17,7 @@ Before getting started with the file conversion, ensure that all files in the nd
 **Create the Input and Output data folders but DO NOT add any files into the Output folder**
 
 Once the files have been set up this way, the code can be run in either the terminal (Mac) or command line (Windows). Be sure to navigate to the directory/folder called nd2_to_dax_converter-main. From this directory, type **python converter.py "..\input_data" "..\output_data"** to run the program. 
+
+## Acknowledgments
+- Code and logic were adapted from Hazenbabcock at the Zhaung Lab and are noted accordingly in the code.
+- Portions of this code and logic were developed with the help of ChatGPT, an AI language model by OpenAI.
