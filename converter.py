@@ -5,9 +5,6 @@ import os
 import tifffile
 import nd2 
 
-import datareader 
-
-
 def convert_nd2_to_tiff(nd2_path, tiff_path):
     print(f"Converting ND2 to TIFF: {nd2_path} → {tiff_path}")
     try:
